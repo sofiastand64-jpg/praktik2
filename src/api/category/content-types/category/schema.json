@@ -4,7 +4,8 @@
   "info": {
     "singularName": "category",
     "pluralName": "categories",
-    "displayName": "Category"
+    "displayName": "Category",
+    "description": "Категории товаров (BrickStore)"
   },
   "options": {
     "draftAndPublish": true
@@ -16,11 +17,65 @@
       "default": "title",
       "required": true
     },
-    "icon": {
-      "type": "string"
-    },
     "slug": {
-      "type": "string"
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "description": "Описание категории для SEO и страницы категории"
+    },
+    "icon": {
+      "type": "string",
+      "description": "Название иконки (например, для lucide-react или другого шрифта иконок)"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"],
+      "description": "Превью/картинка для карточки категории"
+    },
+    "banner": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"],
+      "description": "Большой баннер для верхней части страницы категории"
+    },
+    "sortOrder": {
+      "type": "integer",
+      "default": 0,
+      "description": "Порядок сортировки в меню (чем меньше число, тем выше)"
+    },
+    "isActive": {
+      "type": "boolean",
+      "default": true,
+      "description": "Показывать ли категорию в меню на сайте"
+    },
+    "isFeatured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Показывать категорию в блоке 'Популярные категории' на главной"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    },
+    "parentCategory": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "subCategories",
+      "description": "Родительская категория (для создания дерева категорий)"
+    },
+    "subCategories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::category.category",
+      "mappedBy": "parentCategory"
     },
     "products": {
       "type": "relation",

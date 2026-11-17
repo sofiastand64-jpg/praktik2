@@ -4,7 +4,8 @@
   "info": {
     "singularName": "product",
     "pluralName": "products",
-    "displayName": "Product"
+    "displayName": "Product",
+    "description": "Товары магазина BrickStore"
   },
   "options": {
     "draftAndPublish": true
@@ -14,30 +15,86 @@
     "title": {
       "type": "string",
       "default": "title",
-      "required": true
+      "required": true,
+      "maxLength": 60
     },
     "slug": {
-      "type": "string"
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "sku": {
+      "type": "string",
+      "unique": true,
+      "required": true,
+      "description": "Артикул товара"
     },
     "price": {
-      "type": "decimal"
+      "type": "decimal",
+      "required": true
+    },
+    "originalPrice": {
+      "type": "decimal",
+      "description": "Старая цена для отображения скидки (если есть)"
+    },
+    "stock": {
+      "type": "integer",
+      "default": 0,
+      "min": 0,
+      "description": "Количество товара на складе"
+    },
+    "isFeatured": {
+      "type": "boolean",
+      "default": false,
+      "description": "Показывать на главной странице / в рекомендуемых"
     },
     "description": {
-      "type": "text"
+      "type": "text",
+      "required": true
+    },
+    "shortDescription": {
+      "type": "string",
+      "maxLength": 255,
+      "description": "Краткое описание для карточки товара в каталоге"
     },
     "image": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": ["images", "files", "videos", "audios"]
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "gallery": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": ["images"],
+      "description": "Дополнительные изображения для галереи товара"
     },
     "badge": {
-      "type": "string"
+      "type": "string",
+      "description": "Бейдж (например: 'Хит', 'Новинка', 'Скидка')"
+    },
+    "specs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.specification",
+      "description": "Характеристики товара (ключ-значение)"
     },
     "category": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::category.category",
       "inversedBy": "products"
+    },
+    "reviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::review.review",
+      "mappedBy": "product"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
     }
   }
 }
