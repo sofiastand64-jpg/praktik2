@@ -20,5 +20,5 @@ Backend:
    дождаться "Welcome back! To manage your project 🚀1"
 
    http://localhost:1337
-   админка: http://localhost:1337/admin
+   админка:  
    (Примечание: если база данных пуста, вам нужно будет зарегистрировать администратора в Strapi, создать модели Product и Category, наполнить их данными и обязательно нажать Publish).

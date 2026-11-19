@@ -14,13 +14,16 @@
     "title": {
       "type": "string",
       "default": "title",
+      "maxLength": 60,
       "required": true
     },
     "slug": {
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "price": {
-      "type": "decimal"
+      "type": "decimal",
+      "min": 5
     },
     "description": {
       "type": "text"
@@ -43,6 +46,9 @@
       "relation": "manyToOne",
       "target": "api::category.category",
       "inversedBy": "products"
+    },
+    "rating": {
+      "type": "decimal"
     }
   }
 }
